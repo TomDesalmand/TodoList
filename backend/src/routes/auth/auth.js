@@ -15,7 +15,7 @@ router.post("/register", (req, res) => {
         });
     bcrypt.hash(password, 10).then((hash) => {
         let insert = `INSERT INTO user (email, password, name, firstname) VALUES ('${email}', '${hash}', '${name}', '${firstname}')`;
-        db.query(insert, (err, results) => {
+        db.query(insert, async (err, results) => {
             if (err)
                 return res.status(401).json({
                     "msg": "Token is not valid"
@@ -27,30 +27,33 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/log", (req, res) => {
     const {email, password} = req.body;
     if (email === "undefined" || password === "undefined")
         res.status(401).json({
             "msg": "Bad parameter"
-        })
+        });
     let sql = `SELECT * FROM user WHERE email = '${email}'`;
-    db.query(sql, function (err, result) {
+    db.query(sql, async (err, result) => {
         if (err)
             if (result === "undefined" || !(result.length > 0))
                 res.status(401).json({
                     "msg": "Bad parameter"
-                })
+                });
+            else
+                console.log(err);
         else {
             const user = result[0];
             bcrypt.compare(password, user.password, function (err, result) {
                 if (err)
                     res.status(401).json({
                         "msg": "Invalid Credentials",
-                    })
-                else
+                    });
+                else {
                     res.status(200).json({
                         "token": generateAccessToken(user)
-                    })
+                    });
+                }
             });
         }
     });

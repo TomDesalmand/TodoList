@@ -1,0 +1,8 @@
+.rectangle_login {
+    margin: auto;
+    margin-top: 10%;
+    height: 60vh;
+    width: 30vw;
+    background-color: rgb(225, 225, 225);
+    border-radius: 40px;
+}

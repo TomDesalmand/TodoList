@@ -1,7 +1,7 @@
 var config = require("../../config/db");
 var db = config.db;
 
-exports.view_all_todos = function (res) {
+exports.view_all_todos = async function (res) {
     let sql = `SELECT * FROM todo`;
     db.query(sql, (err, results) => {
         if (err) {
@@ -14,7 +14,7 @@ exports.view_all_todos = function (res) {
     });
 }
 
-exports.view_todo_id = function (res, id) {
+exports.view_todo_id = async function (res, id) {
     let sql = `SELECT * FROM todo WHERE id = ${req.params.info}`;
     db.query(sql, (err, results) => {
         if (err) {
@@ -27,7 +27,7 @@ exports.view_todo_id = function (res, id) {
     });
 }
 
-exports.create_todo = function (title, description, due_time, user_id, status, res, req) {
+exports.create_todo = async function (title, description, due_time, user_id, status, res, req) {
     let insert;
     if (status === undefined) {
         insert = `INSERT INTO todo (title, description, due_time, user_id, status) VALUES ('${title}', '${description}', '${due_time}', '${user_id}', 'not started')`;
@@ -44,7 +44,7 @@ exports.create_todo = function (title, description, due_time, user_id, status, r
     });
 }
 
-exports.update_todo = function(title, description, due_time, user_id, status, req, res) {
+exports.update_todo = async function(title, description, due_time, user_id, status, req, res) {
     let insert;
     if (status === undefined) {
         insert = `UPDATE todo SET title = '${title}', description = '${description}', due_time = '${due_time}', user_id = '${user_id}', status = 'not started' WHERE id = '${req.params.id}'`;
@@ -61,7 +61,7 @@ exports.update_todo = function(title, description, due_time, user_id, status, re
     });
 }
 
-exports.delete_todo_id = function (res, req) {
+exports.delete_todo_id = async function (res, req) {
     let sql = `DELETE FROM todo WHERE id = ${req.params.id}`;
     db.query(sql, (err, results) => {
         if (err) {

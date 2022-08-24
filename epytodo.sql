@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` 
 (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
