@@ -61,7 +61,7 @@ exports.delete_user = async function (res, req) {
                 "msg": "Token is not valid"
             });
         }
-        res.status(200).json({
+        return res.status(200).json({
             "msg" : "Successfully deleted record number: ${id}"
         });
     });

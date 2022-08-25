@@ -32,7 +32,7 @@ router.get('/user/todos', authenticateToken, (req, res) => {
 router.put('/users/:id', authenticateToken, (req, res) => {
     const {email, password, name, firstname} = req.body;
     if (email === "undefined" || password === "undefined" || name === "undefined" || firstname === "undefined")
-        res.status(401).json({
+        return res.status(401).json({
             "msg": "Bad parameter"
         });
     const hash = bcrypt.hashSync(password, 10);

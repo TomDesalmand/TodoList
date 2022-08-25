@@ -4,25 +4,42 @@ import './LoginPage.css'
 
 
 function LoginPage() {
-  
+
   const [Infos, setInfos] = useState(null)
   const [Email, setEmail] = useState(null)
   const [Password, setPassword] = useState(null)
   const [Click, setClick] = useState(false)
+  const [Data, setData] = useState(null)
 
   useEffect(() => {
     if (Email !== null && Password !== null) {
       setInfos({
-        email: Email,
-        password: Password
+        'email': Email,
+        'password': Password
       })
     }
   }, [Click])
 
   useEffect(() => {
-    if (Infos != null)
-      console.log(Infos)
+    if (Infos !== null) {
+      const fetchData = async () => {
+        console.log(Infos)
+        const data = await fetch('http://localhost:5000/log', {
+          method: 'POST',
+          body: Infos,
+        })
+        const json = await data.json()
+        setData(json)
+      }
+      fetchData().catch(console.error)
+    }
   }, [Infos])
+
+  useEffect(() => {
+    if (Data !== null)
+      console.log(Data)
+  }, [Data])
+
 
 
   return (
