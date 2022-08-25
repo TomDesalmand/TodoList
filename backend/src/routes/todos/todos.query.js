@@ -69,7 +69,7 @@ exports.delete_todo_id = async function (res, req) {
                 "msg": "Token is not valid"
             });
         }
-        res.status(200).json({
+        return res.status(200).json({
             "msg" : `Successfully deleted record number: ${req.params.id}`
         });
     });
