@@ -1,8 +1,85 @@
-.rectangle_login {
-    margin: auto;
-    margin-top: 10%;
-    height: 60vh;
-    width: 30vw;
+.login_form {
+    width: 400px;
+    height: 280px;
+    padding: 40px 0px;
     background-color: rgb(225, 225, 225);
     border-radius: 40px;
+    margin: 10% auto;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.login_input {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login_input h1 {
+    font-family: Verdana, sans-serif;
+    font-weight: bold;
+    color: rgb(255, 64, 0);
+}
+
+.login_input input {
+    outline: none;
+    height: 25px;
+    border-radius: 10px;
+    border: 3px solid rgb(170, 170, 170);
+    font-family: Verdana, sans-serif;
+}
+
+.login_input input:focus {
+    height: 25px;
+    border-radius: 10px;
+    border: 3px solid rgb(255, 64, 0);
+    font-family: Verdana, sans-serif;
+}
+
+.login_input button {
+    height: 40px;
+    width: 120px;
+    border-radius: 50px;
+    color: rgb(255, 64, 0);
+    border: none;
+    background-color: rgb(170, 170, 170);
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    font-size: large;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.login_input button:active {
+    width: 110px;
+    border-radius: 50px;
+    color: rgb(170, 170, 170);
+    border: none;
+    background-color: rgb(255, 64, 0);
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Verdana, sans-serif;
+    transition: width 0.1s;
+}
+
+.login_input button:hover {
+    border-radius: 50px;
+    color: rgb(170, 170, 170);
+    border: none;
+    background-color: rgb(255, 64, 0);
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Verdana, sans-serif;
+    transition: width 0.1s, color 0.5, background-color 0.5;
+}
+
+.link {
+    color: rgb(170, 170, 170);
+}
+
+.link:hover {
+    color: rgb(255, 64, 0);
 }
