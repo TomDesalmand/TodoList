@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import './LoginPage.css'
 
 
@@ -10,12 +11,13 @@ function LoginPage() {
   const [Password, setPassword] = useState(null)
   const [Click, setClick] = useState(false)
   const [Data, setData] = useState(null)
+  const navigate = useNavigate() 
 
   useEffect(() => {
     if (Email !== null && Password !== null) {
       setInfos({
-        'email': Email,
-        'password': Password
+        email: Email,
+        password: Password
       })
     }
   }, [Click])
@@ -25,19 +27,28 @@ function LoginPage() {
       const fetchData = async () => {
         console.log(Infos)
         const data = await fetch('http://localhost:5000/log', {
+          headers: { 
+            'Content-Type': 'application/json',
+          },
           method: 'POST',
-          body: Infos,
+          body: JSON.stringify(Infos),
         })
         const json = await data.json()
-        setData(json)
+        if (data.status === 200) {
+          setData(json)
+        } else
+          console.log('Wrong logins')
       }
       fetchData().catch(console.error)
     }
   }, [Infos])
-
+  
   useEffect(() => {
-    if (Data !== null)
+    if (Data !== null) {
       console.log(Data)
+      localStorage.setItem('token', JSON.stringify(Data))
+      navigate('/')
+    }
   }, [Data])
 
 

@@ -1,13 +1,12 @@
-import React from 'react'
-import {Route, Navigate} from "react-router-dom";
+import React, { useState } from 'react'
+import { Navigate } from "react-router-dom";
 
-function PrivateRoute(props, {children}) {
-    const auth = false
-    if (auth === false)
+
+function PrivateRoute({children}) {
+    if (localStorage.getItem('token') === null)
         return <Navigate to='/login'/>
-    console.log('PrivateRoute works')
     return children;
         
 }
 
-export default PrivateRoute
+export default PrivateRoute 
