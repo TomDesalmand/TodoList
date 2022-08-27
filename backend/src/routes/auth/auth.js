@@ -21,7 +21,7 @@ router.post("/register", (req, res) => {
                     "msg": "Token is not valid"
                 });
             return res.status(200).json({
-                "token": generateAccessToken(req.body)
+                "msg": "user was registered"
             });
         });
     });

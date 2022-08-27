@@ -1,10 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import UserId from '../utils/UserId';
+import UserFirstname from '../utils/UserFirstname';
 import './RegisterPage.css'
 
 function RegisterPage() {
 
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+  const navigate = useNavigate()
   const [Infos, setInfos] = useState(null)
   const [Email, setEmail] = useState(null)
   const [Firstname, setFirstname] = useState(null)
@@ -12,7 +18,6 @@ function RegisterPage() {
   const [Password, setPassword] = useState(null)
   const [Click, setClick] = useState(false)
   const [Data, setData] = useState(null)
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (Email !== null && Password !== null && Firstname !== null && Name !== null) {
@@ -47,11 +52,14 @@ function RegisterPage() {
   }, [Infos])
 
   useEffect(() => {
-    if (Data !== null) {
-      console.log(Data)
-      localStorage.setItem('token', JSON.stringify(Data))
-      navigate('/')
+    const register = async () => {
+      if (Data !== null) {
+        console.log(Data)
+        await sleep(100)
+        navigate('/login')
+      }
     }
+    register().catch(console.error)
   }, [Data])
 
   return (

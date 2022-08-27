@@ -1,17 +1,22 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import UserId from '../utils/UserId';
+import UserFirstname from '../utils/UserFirstname';
 import './LoginPage.css'
 
 
 function LoginPage() {
 
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+  const navigate = useNavigate() 
   const [Infos, setInfos] = useState(null)
   const [Email, setEmail] = useState(null)
   const [Password, setPassword] = useState(null)
   const [Click, setClick] = useState(false)
   const [Data, setData] = useState(null)
-  const navigate = useNavigate() 
 
   useEffect(() => {
     if (Email !== null && Password !== null) {
@@ -25,7 +30,6 @@ function LoginPage() {
   useEffect(() => {
     if (Infos !== null) {
       const fetchData = async () => {
-        console.log(Infos)
         const data = await fetch('http://localhost:5000/log', {
           headers: { 
             'Content-Type': 'application/json',
@@ -44,14 +48,18 @@ function LoginPage() {
   }, [Infos])
   
   useEffect(() => {
-    if (Data !== null) {
-      console.log(Data)
-      localStorage.setItem('token', JSON.stringify(Data))
-      navigate('/')
+    const login = async () => {
+      if (Data !== null) {
+        console.log(Data)
+        localStorage.setItem('token', JSON.stringify(Data))
+        UserId(Data.token)
+        UserFirstname(Data.token)
+        await sleep(100)
+        navigate('/')
+      }
     }
+    login().catch(console.error)
   }, [Data])
-
-
 
   return (
     <div className='login_form'>
