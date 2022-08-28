@@ -50,8 +50,8 @@ function LoginPage() {
   useEffect(() => {
     const login = async () => {
       if (Data !== null) {
-        console.log(Data)
-        localStorage.setItem('token', JSON.stringify(Data))
+        localStorage.setItem('token', Data.token)
+        console.log(localStorage.getItem('token'))
         UserId(Data.token)
         UserFirstname(Data.token)
         await sleep(100)

@@ -29,6 +29,7 @@ exports.view_todo_id = async function (res, id) {
 
 exports.create_todo = async function (title, description, due_time, user_id, status, res, req) {
     let insert;
+    console.log(title, description, due_time, user_id, status)
     if (status === undefined) {
         insert = `INSERT INTO todo (title, description, due_time, user_id, status) VALUES ('${title}', '${description}', '${due_time}', '${user_id}', 'not started')`;
     } 
@@ -36,10 +37,11 @@ exports.create_todo = async function (title, description, due_time, user_id, sta
         insert = `INSERT INTO todo (title, description, due_time, user_id, status) VALUES ('${title}', '${description}', '${due_time}', '${user_id}', '${status}')`;
     }
     db.query(insert, (err, results) => {
-        if (err)
-            return res.status(401).json({
-                "msg": "Token is not valid"
+        if (err) {
+            return res.status(400).json({
+                "msg": "Bad parameters"
             });
+        }
         res.status(200).json({results});
     });
 }

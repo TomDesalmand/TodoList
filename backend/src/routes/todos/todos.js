@@ -15,19 +15,20 @@ router.get('/todos/:id', authenticateToken, (req, res) => {
 
 router.post('/todos', authenticateToken, (req, res) => {
     const {title, description, due_time, user_id, status} = req.body;
-    if (title === "undefined" || description === "undefined" || title === "undefined" || user_id === "undefined" || status === "undefined")
+    if (title === undefined || description === undefined || due_time === undefined, user_id === undefined) {
         return res.status(401).json({
             "msg": "Bad parameter"
         });
+    }
     create_todo(title, description, due_time, user_id, status, res, req);
 });
 
 router.put('/todos/:id', authenticateToken, (req, res) => {
     const {title, description, due_time, user_id, status} = req.body;
-    if (title === "undefined" || description === "undefined" || title === "undefined" || user_id === "undefined" || status === "undefined")
-     return res.status(401).json({
-        "msg": "Bad parameter"
-    });
+    if (title === "undefined" || description === "undefined" || due_time === "undefined" || user_id === "undefined" || status === "undefined")
+        return res.status(401).json({
+            "msg": "Bad parameter"
+        });
     update_todo(title, description, due_time, user_id, status, res, req);
 });
 

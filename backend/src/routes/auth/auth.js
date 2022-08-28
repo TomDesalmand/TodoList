@@ -35,13 +35,10 @@ router.post("/log", (req, res) => {
         });
     let sql = `SELECT * FROM user WHERE email = '${email}'`;
     db.query(sql, async (err, result) => {
-        if (err) {
-            if (result === undefined || (result.length === 0)) {
-                return res.status(401).json({
-                    "msg": "Bad parameter"
-                });
-            } else
-                console.log(err);
+        if (err || !(result.length > 0)) {
+            return res.status(401).json({
+                "msg": "Bad parameter"
+            });
         } else {
             const user = result[0];
             bcrypt.compare(password, user.password, function (err, result) {
